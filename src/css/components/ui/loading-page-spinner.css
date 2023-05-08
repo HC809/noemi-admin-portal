@@ -1,0 +1,14 @@
+.loading-spinner-container {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+  }
+    
+  .loadingText {
+    margin-left: 10px;
+    font-size: 1.8em;
+  }
+  

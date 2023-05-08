@@ -16,6 +16,7 @@ import "css/components/nprogress.css";
 import "css/components/recharts.css";
 import "css/components/steps.css";
 import "css/components/left-sidebar-3.css";
+import "css/components/ui/loading-page-spinner.css";
 import {Toaster} from "sonner";
 
 Router.events.on("routeChangeStart", () => NProgress.start());

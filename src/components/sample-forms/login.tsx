@@ -5,7 +5,7 @@ import {Label} from "components/react-hook-form/label";
 import {ErrorMessage} from "components/react-hook-form/error-message";
 import {Input} from "components/react-hook-form/input";
 import {ILoginModel} from "../../models/auth/Login";
-import {AuthAPIService} from "services/auth-service";
+import {AuthAPIService} from "services/auth-api-service";
 import {AlertType, sonnerAlert} from "helpers/sonner-toast-service";
 
 const Index: React.FC = () => {

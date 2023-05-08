@@ -3,6 +3,7 @@ import {useAppSelector} from "store";
 import Navbar1 from "components/navbar-1";
 import LeftSidebar1 from "components/left-sidebar-1";
 import RightSidebar1 from "components/right-sidebar-1";
+import {withAuth} from "helpers/with-auth";
 
 export type Layout1Props = {
   children: React.ReactNode;
@@ -36,4 +37,5 @@ const Layout1: React.FC<Layout1Props> = ({children}) => {
     </>
   );
 };
-export default Layout1;
+
+export default withAuth(Layout1);

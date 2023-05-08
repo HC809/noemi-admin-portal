@@ -1,5 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {TypedUseSelectorHook, useSelector, useDispatch} from "react-redux";
+import authSlice from "slices/authSlice";
 import colorsReducer from "slices/colors";
 import configReducer from "slices/config";
 import leftSidebarReducer from "slices/left-sidebar";
@@ -7,6 +8,7 @@ import navigationReducer from "slices/navigation";
 
 const store = configureStore({
   reducer: {
+    auth: authSlice,
     colors: colorsReducer,
     config: configReducer,
     leftSidebar: leftSidebarReducer,
