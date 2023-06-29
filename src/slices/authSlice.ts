@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {ILoginResponseModel, ILoggedInModel} from "../models/auth/Login";
+import {LoginResponseModel, LoggedInModel} from "../models/auth/login-model";
 import {getAuthUser, removeAuthUser} from "../helpers/local-storage-service";
 
 import store, {AppState} from "../store";
@@ -9,13 +9,13 @@ export const logginOut = () => {
   store.dispatch(logout());
 };
 
-const initialState: ILoggedInModel = getAuthUser();
+const initialState: LoggedInModel = getAuthUser();
 
 const authSlice = createSlice({
   name: "Auth",
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<ILoginResponseModel>) => {
+    login: (state, action: PayloadAction<LoginResponseModel>) => {
       state.email = action.payload.email;
       state.token = action.payload.token;
       state.logged = true;

@@ -1,14 +1,14 @@
-export type ILoginModel = {
+export type LoginModel = {
   email: string;
   password: string;
 };
 
-export interface ILoginResponseModel {
+export interface LoginResponseModel {
   email: string;
   token: string;
 }
 
-export interface ILoggedInModel {
+export interface LoggedInModel {
   email: string | null;
   token: string | null;
   logged: boolean;

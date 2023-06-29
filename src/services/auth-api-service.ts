@@ -1,8 +1,8 @@
-import {ILoginModel, ILoginResponseModel} from "../models/auth/Login";
+import {LoginModel, LoginResponseModel} from "../models/auth/login-model";
 import noTokenRequest from "./api/no-token-request";
 
 const AuthAPIService = {
-  authenticate: (body: ILoginModel): Promise<ILoginResponseModel> =>
+  authenticate: (body: LoginModel): Promise<LoginResponseModel> =>
     noTokenRequest.post("/account/authenticate", body),
 };
 

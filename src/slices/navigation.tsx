@@ -314,7 +314,7 @@ const initialState: NavigationState[] = [
             items: [],
           },
           {
-            url: "/login-3",
+            url: "/login",
             title: "Login 3",
             items: [],
           },

@@ -1,54 +1,89 @@
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useForm, FormProvider} from "react-hook-form";
 import {InputWrapper} from "components/react-hook-form/input-wrapper";
 import {Label} from "components/react-hook-form/label";
 import {ErrorMessage} from "components/react-hook-form/error-message";
 import {Input} from "components/react-hook-form/input";
-import {ILoginModel} from "../../models/auth/Login";
-import {AuthAPIService} from "services/auth-api-service";
+import {LoginModel} from "../../models/auth/login-model";
+import {getSession, signIn, useSession} from "next-auth/react";
 import {AlertType, sonnerAlert} from "helpers/sonner-toast-service";
 
 const Index: React.FC = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const {data: session} = useSession();
 
-  const methods = useForm<ILoginModel>({
+  const [loading, setLoading] = useState<boolean>(false);
+  const [loginError, setLoginError] = useState<string>("");
+
+  useEffect(() => {
+    return () => {
+      setLoginError("");
+      setLoading(false);
+    };
+  }, []);
+
+  const methods = useForm<LoginModel>({
     defaultValues: {
-      email: "",
-      password: "",
+      email: "noemiadmin@gmail.com",
+      password: "123",
     },
   });
+
   const {
     handleSubmit,
     reset,
     formState: {errors},
   } = methods;
 
-  const onSubmit = (model: ILoginModel) => {
+  useEffect(() => {
+    setLoginError("");
+  }, [methods.watch("email"), methods.watch("password")]);
+
+  const sessionTest = async () => {
+    if (session) {
+      console.log("Session: ", session);
+      const serverSession = await getSession();
+      console.log("Server Session: ", serverSession);
+    } else {
+      console.log("Session undefined!");
+    }
+  };
+
+  const onSubmit = async (model: LoginModel) => {
+    setLoginError("");
     setLoading(true);
-    AuthAPIService.authenticate(model)
-      .then((response) => {
-        console.log(`Success Response: ${response}`);
-      })
-      .catch((error) => {
-        sonnerAlert(error, AlertType.error);
-      })
-      .finally(() => {
-        setLoading(false);
+
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: model.email,
+        password: model.password,
+        callbackUrl: "/",
       });
+
+      console.log("Login Result:", result);
+
+      if (result?.ok) {
+        console.log("Login Ok.");
+      } else {
+        setLoginError(result?.error || "");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 w-full">
         <div className="space-y-6">
           <div className="grid grid-cols-1 gap-y-1 gap-x-2 sm:grid-cols-12">
             <InputWrapper outerClassName="sm:col-span-12">
-              <Label id="email">Email</Label>
+              <Label id="email">Correo Electrónico</Label>
               <Input
                 id="email"
                 name="email"
                 type="email"
-                rules={{required: "Please enter a valid email"}}
+                rules={{required: "Correo electrónico no válido."}}
               />
               {errors?.email?.message && (
                 <ErrorMessage>{errors.email.message}</ErrorMessage>
@@ -56,21 +91,16 @@ const Index: React.FC = () => {
             </InputWrapper>
 
             <InputWrapper outerClassName="sm:col-span-12">
-              <Label id="password">Password</Label>
+              <Label id="password">Contraseña</Label>
               <Input
                 id="password"
                 name="password"
                 type="password"
                 rules={{
-                  required: "Please enter a password",
+                  required: "Ingrese una contraseña.",
                   minLength: {
-                    value: 4,
-                    message: "Your password should have at least 4 characters",
-                  },
-                  maxLength: {
-                    value: 8,
-                    message:
-                      "Your password should have no more than 8 characters",
+                    value: 2,
+                    message: "La contraseña debe tener mínimo 2 caracteres.",
                   },
                 }}
               />
@@ -81,19 +111,23 @@ const Index: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex justify-start space-x-2">
+        {loginError && <ErrorMessage>{loginError}</ErrorMessage>}
+
+        <div className="flex justify-end space-x-2">
           <button
             onClick={() => {
-              reset();
+              //reset();
+              sessionTest();
             }}
             type="button"
             className="px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:text-white dark:border-gray-600 dark:hover:border-gray-700 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-            Cancel
+            Cancelar
           </button>
           <button
             type="submit"
+            disabled={loading}
             className="inline-flex justify-center px-3 py-2 ml-3 text-sm font-medium text-white bg-blue-500 border border-transparent shadow-sm rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-            {!loading ? "Login" : "Loading..."}
+            {!loading ? "Ingresar" : "Cargando..."}
           </button>
         </div>
       </form>

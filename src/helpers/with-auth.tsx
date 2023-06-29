@@ -13,7 +13,7 @@ export function withAuth<P>(Component: React.ComponentType<P>) {
       function checkAuth() {
         const {logged} = getAuthUser();
 
-        if (!logged) router.replace("/login-1");
+        if (!logged) router.replace("/login");
         else setIsLoading(false);
       }
 

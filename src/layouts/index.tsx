@@ -42,6 +42,8 @@ const Layouts: React.FC<LayoutProps> = ({children}) => {
   const router = useRouter();
   const {pathname} = router;
   switch (pathname) {
+    case "/login":
+      return <>{children}</>;
     case "/404":
     case "/500":
       return <Centered>{children}</Centered>;
@@ -59,7 +61,6 @@ const Layouts: React.FC<LayoutProps> = ({children}) => {
       return <Centered>{children}</Centered>;
     case "/landing":
     case "/login-2":
-    case "/login-3":
     case "/sidebars":
       return <>{children}</>;
     case "/e-commerce":

@@ -24,7 +24,7 @@ export const Tree = () => (
 │   ├── lists
 │   ├── login-1
 │   ├── login-2
-│   ├── login-3
+│   ├── login
 │   ├── modals
 │   ├── navbar-1
 │   ├── notifications

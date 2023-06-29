@@ -1,15 +1,15 @@
 import CryptoJS from "crypto-js";
 import Cookies from "js-cookie";
-import {ILoggedInModel} from "../models/auth/Login";
+import {LoggedInModel} from "../models/auth/login-model";
 import {AUTH_USER} from "./constants/general";
 
-const initAuthState: ILoggedInModel = {
+const initAuthState: LoggedInModel = {
   email: null,
   token: null,
   logged: false,
 };
 
-const getAuthUser = (): ILoggedInModel => {
+const getAuthUser = (): LoggedInModel => {
   const encryptedAuth = Cookies.get(AUTH_USER);
   if (!encryptedAuth) return initAuthState;
 
@@ -25,7 +25,7 @@ const getAuthUser = (): ILoggedInModel => {
   }
 };
 
-const setAuthUser = (auth: ILoggedInModel): void => {
+const setAuthUser = (auth: LoggedInModel): void => {
   const encryptedAuth = CryptoJS.AES.encrypt(
     JSON.stringify(auth),
     process.env.REACT_APP_CRYPTO_SALT || ""

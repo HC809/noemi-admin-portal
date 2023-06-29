@@ -1,6 +1,7 @@
 import type {AppProps} from "next/app";
 import Head from "next/head";
 import {Provider} from "react-redux";
+import {SessionProvider} from "next-auth/react";
 import Layout from "layouts";
 import store from "store";
 import Router from "next/router";
@@ -32,12 +33,14 @@ function App({Component, pageProps}: AppProps): React.ReactElement {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
       </Head>
-      <Provider store={store}>
-        <Layout>
-          <Toaster richColors position="top-right" />
-          <Component {...pageProps} />
-        </Layout>
-      </Provider>
+      <SessionProvider session={pageProps.session}>
+        <Provider store={store}>
+          <Layout>
+            <Toaster richColors position="top-right" />
+            <Component {...pageProps} />
+          </Layout>
+        </Provider>
+      </SessionProvider>
     </>
   );
 }

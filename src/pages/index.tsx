@@ -18,7 +18,7 @@ const Index: React.FC = () => {
     <>
       <Notification />
       <SectionTitle title="Overview" subtitle="Dashboard" />
-
+      <p>HOLA</p>
       <div className="flex flex-col w-full mb-2 lg:flex-row lg:space-x-2 space-y-2 lg:space-y-0 lg:mb-4">
         <div className="w-full lg:w-1/4">
           <Widget1
@@ -144,4 +144,5 @@ const Index: React.FC = () => {
     </>
   );
 };
+
 export default Index;

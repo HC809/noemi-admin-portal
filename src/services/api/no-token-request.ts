@@ -1,24 +1,37 @@
 import axios, {AxiosError} from "axios";
+import {AlertType, sonnerAlert} from "helpers/sonner-toast-service";
+const https = require("https");
 
 const noTokenRequest = axios.create();
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 noTokenRequest.defaults.baseURL = process.env.NEXT_PUBLIC_NOEMI_API_URL;
 
 noTokenRequest.interceptors.response.use(
   (response) => {
     const {data} = response || {};
-    alert(data);
-    return response;
+    return data;
   },
-  async function (error: AxiosError) {
+  async function (error) {
     if (axios.isAxiosError(error)) {
-      const errorMessage =
-        (error.response && (error.response.data as string)) ||
-        "Error desconocido.";
-
-      return Promise.reject(errorMessage);
+      if (!error.response) {
+        return Promise.reject(
+          "Error de conexión. Por favor, ponte en contacto con el administrador del sistema para informar sobre este problema."
+        );
+      } else {
+        //console.log(error.response.data);
+        //console.log(error.response.status);
+        //console.log(error.response.headers);
+        const errorMessage =
+          (error.response && (error.response.data as string)) ||
+          "Error desconocido.";
+        return Promise.reject(errorMessage);
+      }
     } else {
+      console.log("No Axios Error:", error);
       return Promise.reject(error);
     }
+
     // if (axioError.response?.status === 401) {
     //   alert("No Autorizado");
     // }
