@@ -10,11 +10,11 @@ const Logo: React.FC = () => {
   if (showLogo) {
     return (
       <div className="logo truncate">
-        <Link href="/">
-          <a className="flex flex-row items-center justify-start space-x-2">
-            <FiBox size={28} />
-            <span>{name}</span>
-          </a>
+        <Link
+          href="/"
+          className="flex flex-row items-center justify-start space-x-2">
+          <FiBox size={28} />
+          <span>{name}</span>
         </Link>
         <button
           onClick={() =>

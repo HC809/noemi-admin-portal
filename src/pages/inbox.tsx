@@ -6,10 +6,10 @@ import Links from "components/inbox/links";
 
 const Sidebar: React.FC = () => (
   <div className="space-y-4">
-    <Link href="/inbox">
-      <a className="block w-full py-2 text-xs font-bold text-center text-white uppercase bg-blue-500 rounded hover:bg-blue-600 whitespace-nowrap">
-        Compose email
-      </a>
+    <Link
+      href="/inbox"
+      className="block w-full py-2 text-xs font-bold text-center text-white uppercase bg-blue-500 rounded hover:bg-blue-600 whitespace-nowrap">
+      Compose email
     </Link>
     <Links />
     <Categories />

@@ -38,13 +38,12 @@ const Item: React.FC<NavigationState> = ({url, icon, title, badge, items}) => {
   }
   if (items.length === 0) {
     return (
-      <Link href={url as string}>
-        <a
-          className={`left-sidebar-item flex flex-row items-center justify-items-start w-full h-10 truncate whitespace-nowrap ${
-            active ? "active" : ""
-          }`}>
-          <ItemContent icon={icon} title={title} badge={badge} />
-        </a>
+      <Link
+        href={url as string}
+        className={`left-sidebar-item flex flex-row items-center justify-items-start w-full h-10 truncate whitespace-nowrap ${
+          active ? "active" : ""
+        }`}>
+        <ItemContent icon={icon} title={title} badge={badge} />
       </Link>
     );
   }

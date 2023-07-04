@@ -38,4 +38,4 @@ const Layout1: React.FC<Layout1Props> = ({children}) => {
   );
 };
 
-export default withAuth(Layout1);
+export default (Layout1);

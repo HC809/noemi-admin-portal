@@ -7,11 +7,11 @@ const Logo: React.FC = () => {
   const {name} = config;
   return (
     <div className="uppercase font-bold text-base tracking-wider flex flex-row items-center justify-start w-full whitespace-nowrap text-white">
-      <Link href="/">
-        <a className="flex flex-row items-center justify-start space-x-2">
-          <FiBox size={28} />
-          <span>{name}</span>
-        </a>
+      <Link
+        href="/"
+        className="flex flex-row items-center justify-start space-x-2">
+        <FiBox size={28} />
+        <span>{name}</span>
       </Link>
     </div>
   );

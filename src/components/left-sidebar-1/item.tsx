@@ -17,16 +17,16 @@ const Item: React.FC<NavigationState> = ({url, icon, title, badge, items}) => {
   }
   if (items.length === 0) {
     return (
-      <Link href={url as string}>
-        <a className={`left-sidebar-item ${active ? "active" : ""}`}>
-          {icon}
-          <span className="title">{title}</span>
-          {badge && (
-            <span className={`badge badge-circle badge-sm ${badge.color}`}>
-              {badge.text}
-            </span>
-          )}
-        </a>
+      <Link
+        href={url as string}
+        className={`left-sidebar-item ${active ? "active" : ""}`}>
+        {icon}
+        <span className="title">{title}</span>
+        {badge && (
+          <span className={`badge badge-circle badge-sm ${badge.color}`}>
+            {badge.text}
+          </span>
+        )}
       </Link>
     );
   }

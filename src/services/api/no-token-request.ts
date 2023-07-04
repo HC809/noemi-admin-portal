@@ -1,13 +1,10 @@
-import axios, {AxiosError} from "axios";
-import {AlertType, sonnerAlert} from "helpers/sonner-toast-service";
-const https = require("https");
-
-const noTokenRequest = axios.create();
+import axios from "axios";
+const noAuthRequest = axios.create();
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-noTokenRequest.defaults.baseURL = process.env.NEXT_PUBLIC_NOEMI_API_URL;
+noAuthRequest.defaults.baseURL = process.env.NEXT_PUBLIC_NOEMI_API_URL;
 
-noTokenRequest.interceptors.response.use(
+noAuthRequest.interceptors.response.use(
   (response) => {
     const {data} = response || {};
     return data;
@@ -38,4 +35,4 @@ noTokenRequest.interceptors.response.use(
   }
 );
 
-export default noTokenRequest;
+export default noAuthRequest;

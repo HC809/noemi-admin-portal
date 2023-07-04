@@ -24,8 +24,6 @@ const authOptions: NextAuthOptions = {
 
           const response = await AuthAPIService.authenticate(model);
 
-          console.log(response);
-
           const user: User = {
             id: response.email,
             email: response.email,
@@ -33,8 +31,6 @@ const authOptions: NextAuthOptions = {
             image: "",
             customToken: response.token,
           };
-
-          console.log(user);
 
           return user;
         } catch (error: any) {
