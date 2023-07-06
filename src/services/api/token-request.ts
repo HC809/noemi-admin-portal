@@ -1,4 +1,7 @@
 import axios from "axios";
+import {getToken} from "next-auth/jwt";
+import {getSession} from "next-auth/react";
+
 const authRequest = axios.create();
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -14,8 +17,11 @@ const axiosDefaultHeaders = (token: string) => {
 
 authRequest.interceptors.request.use(
   async (config) => {
-    const token = "";
-    config.headers = axiosDefaultHeaders(token);
+    const session = await getSession();
+    if (session) {
+      const {accessToken} = session;
+      config.headers = axiosDefaultHeaders(accessToken || "");
+    }
 
     return config;
   },
